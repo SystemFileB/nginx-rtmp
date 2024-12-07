@@ -1,7 +1,9 @@
 # ℹ️ 本分支说明
 这个分支是用于 [CamMoitor 服务端](https://github.com/SystemFileB/CamMonitor_Server) 的，加入了 [Nginx-RTMP-Module](https://github.com/arut/nginx-rtmp-module)
 
-你也可以通过Actions来获取构建，如果没有任何问题的话，每3天构建一次 (目前还没有创建工作流)
+自带的Makefile仅适用于Windows，你可以clone这个项目，然后自行构建
+
+Windows构建结果在objs.msvc8/nginx.exe下，你也可以通过Release来获取构建
 
 # 原README
 <picture>
