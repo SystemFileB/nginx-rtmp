@@ -15,7 +15,7 @@ jobs:
 
     - name: Build Nginx
       run: |
-        ./nginx-builder.sh
+        sudo ./nginx-builder.sh
 
     - name: Upload to GitHub Release
       uses: softprops/action-gh-release@v1
