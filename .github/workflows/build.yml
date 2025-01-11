@@ -1,0 +1,29 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main  # 假设你在 main 分支上进行构建
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build Nginx
+      run: |
+        ./nginx-builder.sh
+
+    - name: Upload to GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          deb/nginx-rtmp-linux-amd64.deb
+          tar/nginx-rtmp-linux-amd64.tar.gz
+          windows/nginx-rtmp-windows-amd64.7z
+        tag_name: ${{ github.ref_name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
