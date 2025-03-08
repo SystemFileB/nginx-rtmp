@@ -23,14 +23,13 @@ jobs:
 
     - name: 安装工具
       run: |
-        sudo apt-get update
         sudo apt-get install -y curl 7zip tar git gcc mingw-w64 make perl
 
     - name: 构建
       run: |
         chmod +x nginx-builder.sh
-        sh ./nginx-builder.sh windows x86_64-w64-mingw32-gcc x86_64
         sh ./nginx-builder.sh windows i686-w64-mingw32-gcc x86
+        sh ./nginx-builder.sh windows x86_64-w64-mingw32-gcc x86_64
 
     - name: 校验
       run: |
