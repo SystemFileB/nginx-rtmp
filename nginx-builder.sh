@@ -24,9 +24,9 @@ cd ..
 echo "Step 1: 构建 $1 版本"
 echo "Step 1.1: 配置"
 if [ "$1" == "windows" ]; then
-    ./configure-win.sh $2 $CURRENT_TIME
+    $RUNPATH/configure-win.sh $2 $CURRENT_TIME
 else
-   ./configure-linux.sh $2 $CURRENT_TIME
+   $RUNPATH/configure-linux.sh $2 $CURRENT_TIME
 fi
 
 echo "Step 1.2: 构建！"
