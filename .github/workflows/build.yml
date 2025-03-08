@@ -42,14 +42,18 @@ jobs:
           echo "" >> hash.txt
         done
 
+    - name: 设置构建时间
+      id: set-time
+      run: |
+        echo "DATE_STR=$(date '+%Y.%m.%d %H:%M:%S')" >> $GITHUB_OUTPUT
+        echo "TAG_STR=$(date '+%Y%m%d')" >> $GITHUB_OUTPUT
+
     - name: 上传github release
       uses: softprops/action-gh-release@v4
       with:
         files: |
           ./*.7z
-          ./*.tar.gz
           ./hash.txt
-        # 修改release名称格式
-        name: "构建时间/Build Time: $(date "+%Y.%m.%d %H:%M:%S")"
-        # 使用日期作为tag（每天覆盖）
-        tag_name: $(date "+%Y%m%d")
+          ./*.tar.gz
+        name: "构建时间/Build Time: ${{ steps.set-time.outputs.DATE_STR }}"
+        tag_name: ${{ steps.set-time.outputs.TAG_STR }}
