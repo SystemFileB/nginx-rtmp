@@ -23,8 +23,8 @@ jobs:
 
     - name: 安装工具
       run: |
-        apt-get update
-        apt-get install -y curl 7zip tar git gcc mingw-w64 make perl gcc-aarch64-linux-gnu gcc-multilib gcc-loongarch64-linux-gnu gcc-arm-linux-gnueabihf
+        sudo apt-get update
+        sudo apt-get install -y curl 7zip tar git gcc mingw-w64 make perl gcc-aarch64-linux-gnu gcc-multilib gcc-loongarch64-linux-gnu gcc-arm-linux-gnueabihf
 
     - name: 构建
       run: |
