@@ -37,13 +37,14 @@ cd ..
 mkdir build
 
 if [ "$1" == "windows" ]; then
-    cp -r nginx/objs/nginx.exe build/nginx.exe
+    cp -r nginx/build/nginx.exe build/nginx.exe
     cp -r binary-req/. build/
     7zz nginx-rtmp-$1-windows-$3.7z build
 else
-    cp -r nginx/objs/nginx build/nginx
+    cp -r nginx/build/nginx build/nginx
     cp -r binary-req-linux/. build/
     tar ../nginx-rtmp-$1-linux-$3.tar.gz build -z
+fi
 echo "Step 2: 清理"
 rm -rf nginx
 

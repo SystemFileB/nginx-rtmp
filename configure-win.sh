@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+echo "用法：configure-win.sh [编译器] [架构]"
 
 auto/configure \
   --with-cc=$1 \
