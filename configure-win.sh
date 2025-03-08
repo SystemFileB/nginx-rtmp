@@ -1,6 +1,9 @@
+#!/usr/bin/env bash
+
 auto/configure \
-  --with-cc="x86_64-w64-mingw32-gcc-win32" \
-  --builddir=objs \
+  --with-cc=$1 \
+  --builddir=build \
+  --build=SystemFileB_Nginx-rtmp_Build_$2 \
   --with-debug \
   --prefix= \
   --conf-path=nginx/nginx.conf \
@@ -8,11 +11,11 @@ auto/configure \
   --http-log-path=nginx/access.log \
   --error-log-path=nginx/error.log \
   --sbin-path=nginx.exe \
-  --http-client-body-temp-path=nginx/client_body_temp \
-  --http-proxy-temp-path=nginx/proxy_temp \
-  --http-fastcgi-temp-path=nginx/fastcgi_temp \
-  --http-scgi-temp-path=nginx/scgi_temp \
-  --http-uwsgi-temp-path=nginx/uwsgi_temp \
+  --http-client-body-temp-path=nginx/temp/client_body_temp \
+  --http-proxy-temp-path=nginx/temp/proxy_temp \
+  --http-fastcgi-temp-path=nginx/temp/fastcgi_temp \
+  --http-scgi-temp-path=nginx/temp/scgi_temp \
+  --http-uwsgi-temp-path=nginx/temp/uwsgi_temp \
   --with-cc-opt=-DFD_SETSIZE=1024 \
   --with-pcre=lib/pcre2 \
   --with-zlib=lib/zlib \

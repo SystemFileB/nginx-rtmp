@@ -1,29 +1,55 @@
-name: Build and Release
+name: Nginx Builder
 
 on:
   push:
-    branches:
-      - main  # 假设你在 main 分支上进行构建
+    # 修改为监控所有分支推送（移除分支过滤）
+    # 添加nginx子模块路径监控（按实际路径调整）
+    paths:
+      - "**"
+      - "nginx/**"
+
+  schedule:
+    # 每天UTC时间0点执行（北京时间8点）
+    - cron: '0 0 */3 * *'
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - name: 检查代码
+      uses: actions/checkout@v4
 
-    - name: Build Nginx
+    - name: 安装工具
       run: |
-        ./nginx-builder.sh
+        apt-get update
+        apt-get install -y curl 7zip tar git gcc mingw-w64 make perl gcc-aarch64-linux-gnu gcc-multilib gcc-loongarch64-linux-gnu gcc-arm-linux-gnueabihf
 
-    - name: Upload to GitHub Release
-      uses: softprops/action-gh-release@v1
+    - name: 构建
+      run: |
+        chmod +x nginx-builder.sh
+        sh ./nginx-builder.sh windows x86_64-w64-mingw32-gcc x86_64
+        sh ./nginx-builder.sh windows i686-w64-mingw32-gcc x86
+
+    - name: 校验
+      run: |
+        for file in *.7z; do
+          echo "${file}：" >> hash.txt
+          md5sum "$file" | awk '{print "MD5:    "$1}' >> hash.txt
+          sha1sum "$file" | awk '{print "SHA1:   "$1}' >> hash.txt
+          sha256sum "$file" | awk '{print "SHA256: "$1}' >> hash.txt
+          echo "" >> hash.txt
+        done
+
+    - name: 上传github release
+      uses: softprops/action-gh-release@v4
       with:
         files: |
-          deb/nginx-rtmp-linux-amd64.deb
-          tar/nginx-rtmp-linux-amd64.tar.gz
-          windows/nginx-rtmp-windows-amd64.7z
-        tag_name: ${{ github.ref_name }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ./*.7z
+          ./*.tar.gz
+          ./hash.txt
+        # 修改release名称格式
+        name: "构建时间/Build Time: $(date "+%Y.%m.%d %H:%M:%S")"
+        # 使用日期作为tag（每天覆盖）
+        tag_name: $(date "+%Y%m%d")
