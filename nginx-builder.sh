@@ -15,7 +15,7 @@ mkdir lib
 cd lib
 
 git clone "https://github.com/PCRE2Project/pcre2.git" ./pcre2   --branch "release/pcre2-10.45"        # PCRE2
-git clone "https://github.com/madler/zlib.git"        ./zlib    --branch "master"                     # zlib
+git clone "https://github.com/madler/zlib.git"        ./zlib    --branch "develop"                    # zlib
 git clone "https://github.com/openssl/openssl.git"    ./openssl --branch "master"                     # OpenSSL
 
 cd ..
