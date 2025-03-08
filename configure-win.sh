@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash
 echo "用法：configure-win.sh [编译器] [架构]"
 
-auto/configure \
+.、auto/configure \
   --with-cc=$1 \
   --builddir=build \
   --build=SystemFileB_Nginx-rtmp_Build_$2 \
@@ -19,6 +19,7 @@ auto/configure \
   --http-uwsgi-temp-path=nginx/temp/uwsgi_temp \
   --with-cc-opt=-DFD_SETSIZE=1024 \
   --with-pcre=lib/pcre2 \
+  --with-pcre-opt="--disable-dependency-tracking" \
   --with-zlib=lib/zlib \
   --with-http_v2_module \
   --with-http_realip_module \
